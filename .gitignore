@@ -2,4 +2,4 @@
 !*/
 
 !.gitignore
-!.cs
+!*.cs
