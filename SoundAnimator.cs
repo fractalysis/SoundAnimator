@@ -7,13 +7,10 @@ using System.Linq;
 
 public class SoundAnimator : MonoBehaviour
 {
-	public AudioClip s;
+	public AudioClip source;
 	public AnimationClip dest;
+    public float sampleRate = 30;
 
-    public enum PropertyType
-    {
-        Float, Range
-    }
     [Serializable]
     public class RecordSlot
     {
@@ -21,32 +18,30 @@ public class SoundAnimator : MonoBehaviour
         {
             Material, ParticleSystem, BlendShape, Transform, Parameter
         };
-        public PropertyType type;
-        public PropertiesSet typeSet;
         public string name;
-        public float rangeMin, rangeMax;
+        public string relativePath;
+        public string componentType;
+        public float rangeMin = 0, rangeMax = 1;
 
         public RecordSlot() { }
-        public RecordSlot(RecordSlot slot)
-        {
-            type = slot.type;
-            typeSet = slot.typeSet;
-            name = slot.name;
-            rangeMin = slot.rangeMin;
-            rangeMax = slot.rangeMax;
-        }
     }
     public List<RecordSlot> recordSlots;
 	
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public void GenerateAnimations(){
 
-    // Update is called once per frame
-    void Update()
-    {
+        Debug.Log("Generating keyframes...");
+
+        AnimationCurve generated_keyframes = new AnimationCurve();
+        AudioToParam.AudioToCurve(ref source, ref generated_keyframes, sampleRate);
+
+        Debug.Log("Saving to animation clip...");
+
+        foreach(RecordSlot r in recordSlots){
+            Type component = System.Type.GetType(r.componentType);
+
+            dest.SetCurve( r.relativePath, component, r.name, generated_keyframes );
+        }
         
+        Debug.Log("Done.");
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 public static class AudioToParam
 {
@@ -14,6 +15,7 @@ public static class AudioToParam
         float[] samples_mono = new float[audio.samples];
         for(int i=0; i<audio.samples; i++){
             samples_mono[i] = raw[i*audio.channels];
+            //Assert.IsTrue(-0.01 <= samples_mono[i] && samples_mono[i] <= 1.01, "Audio sample was " + samples_mono[i]);
         }
 
 
@@ -46,7 +48,7 @@ public static class AudioToParam
     }
 
     private static float LerpResample(ref float[] arr, float index){
-        float t = (float) Math.Truncate(index);
+        float t = index - (float) Math.Floor(index);
         return arr[ (int) Math.Floor(index) ] * (1-t) + arr[ (int) Math.Ceiling(index) ] * t;
     }
 }

@@ -11,9 +11,9 @@ public class SoundAnimatorEditor : Editor
     public override void OnInspectorGUI(){
         DrawDefaultInspector();
 
-        if(GUILayout.Button("Generate"))
-        {
-            
+        SoundAnimator base_script = (SoundAnimator) target;
+        if(GUILayout.Button("Generate")){
+            base_script.GenerateAnimations();
         }
     }
 }
