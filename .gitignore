@@ -1,5 +1,11 @@
 *
 !*/
 
+# Code
 !.gitignore
 !*.cs
+
+# Docs
+!*.md
+!*.amxd
+!*.png
