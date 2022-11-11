@@ -12,8 +12,8 @@ Solo the track, export, move it to unity, add the SoundAnimator component, put t
 - Source should be your DC offset audio file
 - Sample Rate should probably be 30, 60 if you want ultra high quality (idk if it goes higher)
 - Name should be the name of the parameter on your component
-- Component Type should be an argument that can be understood by [System.Type.GetType](https://forum.unity.com/threads/using-type-gettype-with-unity-objects.136580/) that selects the component you want.
+- Component Type should be an argument that can be understood by [System.Type.GetType](https://forum.unity.com/threads/using-type-gettype-with-unity-objects.136580/) that selects the component you want
 
-To sync the audio disable the component on the first keyframe, and enable it on the second after 1/60th of a second (idk why lol)
+To sync the audio disable the component on the first keyframe, and enable it on the keyframe after 1/60th of a second (idk why lol)
 
 ![Unity Example Player Keyframe](UnityExamplePlayerKeyframe.png)
